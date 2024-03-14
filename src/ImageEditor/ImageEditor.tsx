@@ -14,17 +14,7 @@ const initTransformation = {
 }
 
 const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorProps> = (props, ref) => {
-  const {
-    width,
-    height,
-    cropWidth,
-    cropHeight,
-    minScale = 1,
-    maxScale = 4,
-    scale = 1,
-    bgColor = 'transparent',
-    className
-  } = props
+  const { width, height, cropWidth, cropHeight, scale = 1, bgColor = 'transparent', className } = props
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
   const [bitmap, setBitmap] = React.useState<ImageBitmap>()
   const [transformation, setTransformation] = React.useState(initTransformation)
@@ -123,8 +113,8 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
   }, [])
 
   React.useEffect(() => {
-    setTransformation((transformation) => ({ ...transformation, scale: Math.min(Math.max(scale, minScale), maxScale) }))
-  }, [scale, minScale, maxScale])
+    setTransformation((transformation) => ({ ...transformation, scale: Math.max(scale, 0) }))
+  }, [scale])
 
   return <canvas ref={canvasRef} width={width} height={height} className={className} />
 }

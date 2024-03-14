@@ -8,8 +8,6 @@ export type ImageEditorProps = {
   height: number
   cropWidth: number
   cropHeight: number
-  minScale?: number
-  maxScale?: number
   scale?: number
   bgColor?: string
   className?: string

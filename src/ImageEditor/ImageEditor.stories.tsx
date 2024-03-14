@@ -31,28 +31,11 @@ export default {
     scale: {
       control: { type: 'number' },
       defaultValue: 1
-    },
-    minScale: {
-      control: { type: 'number' },
-      defaultValue: 1
-    },
-    maxScale: {
-      control: { type: 'number' },
-      defaultValue: 4
     }
   }
 }
 
-export const Example = ({
-  bgColor,
-  width,
-  height,
-  cropWidth,
-  cropHeight,
-  scale,
-  minScale,
-  maxScale
-}: ImageEditorProps) => {
+export const Example = ({ bgColor, width, height, cropWidth, cropHeight, scale }: ImageEditorProps) => {
   const imageEditorRef = React.useRef<ImageEditorType>(null)
   const [cropImage, setCropImage] = React.useState<Blob>()
 
@@ -81,8 +64,6 @@ export const Example = ({
         cropWidth={cropWidth}
         cropHeight={cropHeight}
         scale={scale}
-        minScale={minScale}
-        maxScale={maxScale}
         bgColor={bgColor}
       />
       <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
