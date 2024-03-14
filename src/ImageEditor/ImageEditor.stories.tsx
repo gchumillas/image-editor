@@ -28,6 +28,10 @@ export default {
       control: { type: 'number' },
       defaultValue: 180
     },
+    scale: {
+      control: { type: 'number' },
+      defaultValue: 1
+    },
     minScale: {
       control: { type: 'number' },
       defaultValue: 1
@@ -39,7 +43,16 @@ export default {
   }
 }
 
-export const Example = ({ bgColor, width, height, cropWidth, cropHeight, minScale, maxScale }: ImageEditorProps) => {
+export const Example = ({
+  bgColor,
+  width,
+  height,
+  cropWidth,
+  cropHeight,
+  scale,
+  minScale,
+  maxScale
+}: ImageEditorProps) => {
   const imageEditorRef = React.useRef<ImageEditorType>(null)
   const [cropImage, setCropImage] = React.useState<Blob>()
 
@@ -67,6 +80,7 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight, minScal
         height={height}
         cropWidth={cropWidth}
         cropHeight={cropHeight}
+        scale={scale}
         minScale={minScale}
         maxScale={maxScale}
         bgColor={bgColor}

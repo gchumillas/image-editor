@@ -19,8 +19,9 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
     height,
     cropWidth,
     cropHeight,
-    // minScale = 1,
-    // maxScale = 4,
+    minScale = 1,
+    maxScale = 4,
+    scale = 1,
     bgColor = 'transparent',
     className
   } = props
@@ -120,6 +121,10 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
       window.removeEventListener('mouseup', onMouseUp)
     }
   }, [])
+
+  React.useEffect(() => {
+    setTransformation((transformation) => ({ ...transformation, scale: Math.min(Math.max(scale, minScale), maxScale) }))
+  }, [scale, minScale, maxScale])
 
   return <canvas ref={canvasRef} width={width} height={height} className={className} />
 }
