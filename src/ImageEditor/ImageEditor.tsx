@@ -139,24 +139,7 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
     loadImage()
   }, [image, cropWidth, cropHeight, fitImageIntoCropArea])
 
-  // const doScale = React.useCallback((value: number) => {
-  //   setDragging((dragging) => ({ ...dragging, scale: (originalScale.current * value) / 100 }))
-  // }, [])
-
-  return (
-    <div className="inline-flex flex-col gap-24 bg-white">
-      <canvas ref={canvasRef} width={width} height={height} />
-      {/* <InputSlider
-        value={(dragging.scale / originalScale.current) * 100}
-        onChange={doScale}
-        min={minScale * 100}
-        max={maxScale * 100}
-        showButtons
-        buttonStep={10}
-        className="px-16"
-      /> */}
-    </div>
-  )
+  return <canvas ref={canvasRef} width={width} height={height} />
 }
 
 export default React.forwardRef(ImageEditor)

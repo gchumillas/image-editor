@@ -1,4 +1,6 @@
 import React from 'react'
+// eslint-disable-next-line
+import styles from './ImageEditor.stories.module.css'
 import ImageEditor from './ImageEditor'
 import { ImageEditorProps, ImageEditorType } from './types'
 
@@ -76,7 +78,7 @@ export const Example = ({
   }
 
   return (
-    <div className="flex justify-center items-center gap-16 h-screen">
+    <div className={styles.container}>
       {image ? (
         <ImageEditor
           ref={imageEditorRef}
@@ -93,10 +95,10 @@ export const Example = ({
       ) : (
         <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
       )}
-      {cropImage && <img alt="cropped image" src={URL.createObjectURL(cropImage)} className="border-2" />}
       <button disabled={!image} onClick={doSave}>
         Crop!
       </button>
+      {cropImage && <img alt="cropped image" src={URL.createObjectURL(cropImage)} />}
     </div>
   )
 }
