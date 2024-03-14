@@ -17,7 +17,7 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
   const originalScale = React.useRef(1)
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
   const [bitmap, setBitmap] = React.useState<ImageBitmap>()
-  const [dragging, setDragging] = React.useState({
+  const [transformation, setTransformation] = React.useState({
     started: false,
     originX: 0,
     originY: 0,
@@ -49,18 +49,18 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
     drawImage({
       canvas,
       bitmap,
-      x: dragging.imageX + dragging.offsetX,
-      y: dragging.imageY + dragging.offsetY,
+      x: transformation.imageX + transformation.offsetX,
+      y: transformation.imageY + transformation.offsetY,
       width,
       height,
       cropWidth,
       cropHeight,
-      scale: dragging.scale,
+      scale: transformation.scale,
       bgColor
     })
-  }, [dragging, bitmap, width, height, cropWidth, cropHeight, bgColor])
+  }, [transformation, bitmap, width, height, cropWidth, cropHeight, bgColor])
 
-  // setup dragging
+  // setup transformation
   React.useEffect(() => {
     const onMouseDown = (e: MouseEvent) => {
       const canvas = canvasRef.current
@@ -68,8 +68,8 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
         return
       }
 
-      setDragging((dragging) => ({
-        ...dragging,
+      setTransformation((transformation) => ({
+        ...transformation,
         started: true,
         originX: e.clientX,
         originY: e.clientY,
@@ -79,14 +79,14 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
     }
 
     const onMouseMove = (e: MouseEvent) => {
-      setDragging((dragging) =>
-        dragging.started
+      setTransformation((transformation) =>
+        transformation.started
           ? {
-              ...dragging,
-              offsetX: (e.clientX - dragging.originX) / dragging.scale,
-              offsetY: (e.clientY - dragging.originY) / dragging.scale
+              ...transformation,
+              offsetX: (e.clientX - transformation.originX) / transformation.scale,
+              offsetY: (e.clientY - transformation.originY) / transformation.scale
             }
-          : dragging
+          : transformation
       )
 
       // prevent text selection
@@ -94,17 +94,17 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
     }
 
     const onMouseUp = (e: MouseEvent) => {
-      setDragging((dragging) =>
-        dragging.started
+      setTransformation((transformation) =>
+        transformation.started
           ? {
-              ...dragging,
+              ...transformation,
               started: false,
               offsetX: 0,
               offsetY: 0,
-              imageX: dragging.imageX + (e.clientX - dragging.originX) / dragging.scale,
-              imageY: dragging.imageY + (e.clientY - dragging.originY) / dragging.scale
+              imageX: transformation.imageX + (e.clientX - transformation.originX) / transformation.scale,
+              imageY: transformation.imageY + (e.clientY - transformation.originY) / transformation.scale
             }
-          : dragging
+          : transformation
       )
     }
 
@@ -130,7 +130,7 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
         const cropTan = cropHeight / cropWidth
         const scale = imageTan < cropTan ? cropWidth / imageWidth : cropHeight / imageHeight
         originalScale.current = scale
-        setDragging((dragging) => ({ ...dragging, scale }))
+        setTransformation((transformation) => ({ ...transformation, scale }))
       }
 
       setBitmap(bitmap)
