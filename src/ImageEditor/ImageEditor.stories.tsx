@@ -40,11 +40,6 @@ export default {
       control: { type: 'number' },
       defaultValue: 4
     }
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'largeTablet'
-    }
   }
 }
 
