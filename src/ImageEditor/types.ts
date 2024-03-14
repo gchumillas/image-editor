@@ -1,9 +1,9 @@
 export type ImageEditorType = {
+  loadImageFromFile: (file: Blob) => Promise<void>
   getCroppedImage: () => Promise<Blob | null>
 }
 
 export type ImageEditorProps = {
-  image: Blob
   width: number
   height: number
   cropWidth: number

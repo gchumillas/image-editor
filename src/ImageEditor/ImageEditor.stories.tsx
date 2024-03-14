@@ -54,13 +54,13 @@ export const Example = ({
   maxScale
 }: ImageEditorProps) => {
   const imageEditorRef = React.useRef<ImageEditorType>(null)
-  const [image, setImage] = React.useState<Blob>()
   const [cropImage, setCropImage] = React.useState<Blob>()
 
   const doChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
+    const imageEditor = imageEditorRef.current!
     if (files?.length) {
-      setImage(files[0])
+      imageEditor.loadImageFromFile(files[0])
     }
   }
 
@@ -74,25 +74,19 @@ export const Example = ({
 
   return (
     <div className={styles.container}>
-      {image ? (
-        <ImageEditor
-          ref={imageEditorRef}
-          image={image}
-          width={width}
-          height={height}
-          cropWidth={cropWidth}
-          cropHeight={cropHeight}
-          fitImageIntoCropArea={fitImageIntoCropArea}
-          minScale={minScale}
-          maxScale={maxScale}
-          bgColor={bgColor}
-        />
-      ) : (
-        <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
-      )}
-      <button disabled={!image} onClick={doSave}>
-        Crop!
-      </button>
+      <ImageEditor
+        ref={imageEditorRef}
+        width={width}
+        height={height}
+        cropWidth={cropWidth}
+        cropHeight={cropHeight}
+        fitImageIntoCropArea={fitImageIntoCropArea}
+        minScale={minScale}
+        maxScale={maxScale}
+        bgColor={bgColor}
+      />
+      <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
+      <button onClick={doSave}>Crop!</button>
       {cropImage && <img alt="cropped image" src={URL.createObjectURL(cropImage)} />}
     </div>
   )
