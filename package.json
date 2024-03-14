@@ -16,6 +16,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.12",
+    "@mui/material": "^5.15.13",
     "@rollup/plugin-alias": "^4.0.3",
     "@size-limit/esbuild": "^8.2.4",
     "@size-limit/esbuild-why": "^8.2.4",
