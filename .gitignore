@@ -1,0 +1,14 @@
+*.log
+.DS_Store
+node_modules
+.cache
+dist
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+test.*
+.env.local
+esbuild-why-1.html
+esbuild-why-2.html
+storybook-static
+.vscode
