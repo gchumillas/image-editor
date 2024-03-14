@@ -92,7 +92,7 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
           : transformation
       )
 
-      // prevent text selection
+      // prevents text selection
       e.preventDefault()
     }
 

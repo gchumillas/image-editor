@@ -28,10 +28,6 @@ export default {
       control: { type: 'number' },
       defaultValue: 180
     },
-    fitImageIntoCropArea: {
-      control: { type: 'boolean' },
-      defaultValue: false
-    },
     minScale: {
       control: { type: 'number' },
       defaultValue: 1
@@ -43,16 +39,7 @@ export default {
   }
 }
 
-export const Example = ({
-  bgColor,
-  width,
-  height,
-  cropWidth,
-  cropHeight,
-  fitImageIntoCropArea,
-  minScale,
-  maxScale
-}: ImageEditorProps) => {
+export const Example = ({ bgColor, width, height, cropWidth, cropHeight, minScale, maxScale }: ImageEditorProps) => {
   const imageEditorRef = React.useRef<ImageEditorType>(null)
   const [cropImage, setCropImage] = React.useState<Blob>()
 
@@ -80,7 +67,6 @@ export const Example = ({
         height={height}
         cropWidth={cropWidth}
         cropHeight={cropHeight}
-        fitImageIntoCropArea={fitImageIntoCropArea}
         minScale={minScale}
         maxScale={maxScale}
         bgColor={bgColor}
