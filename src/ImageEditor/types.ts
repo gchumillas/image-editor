@@ -12,4 +12,5 @@ export type ImageEditorProps = {
   minScale?: number
   maxScale?: number
   bgColor?: string
+  className?: string
 }

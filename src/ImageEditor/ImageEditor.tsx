@@ -12,7 +12,8 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
     fitImageIntoCropArea,
     // minScale = 1,
     // maxScale = 4,
-    bgColor = 'transparent'
+    bgColor = 'transparent',
+    className
   } = props
   const originalScale = React.useRef(1)
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
@@ -139,7 +140,7 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
     loadImage()
   }, [image, cropWidth, cropHeight, fitImageIntoCropArea])
 
-  return <canvas ref={canvasRef} width={width} height={height} />
+  return <canvas ref={canvasRef} width={width} height={height} className={className} />
 }
 
 export default React.forwardRef(ImageEditor)
