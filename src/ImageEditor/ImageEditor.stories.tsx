@@ -75,7 +75,7 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
         >
           <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
         </ImageEditor>
-        <Slider min={100} max={200} value={scale} onChange={(_, size) => doScaleChange(size as number)} />
+        <Slider min={50} max={150} value={scale} onChange={(_, size) => doScaleChange(size as number)} />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
