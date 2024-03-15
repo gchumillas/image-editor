@@ -21,7 +21,7 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
 
   React.useImperativeHandle(ref, () => ({
     loadImageFromFile: async (file: Blob) => {
-      setTransformation(initTransformation)
+      setTransformation({ ...initTransformation, scale })
       setBitmap(await blob2imageBitmap(file))
     },
     getCroppedImage: async (): Promise<Blob | null> => {
