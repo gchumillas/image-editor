@@ -36,12 +36,12 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
   const [cropImage, setCropImage] = React.useState<Blob>()
   const [scale, setScale] = React.useState(100)
 
-  const doScaleChange = (scale: number) => {
+  const doScaleImage = (scale: number) => {
     setScale(scale)
   }
 
   // TODO: rename to doFileChange
-  const doChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const doChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageEditor = imageEditorRef.current!
     const files = e.target.files
     if (files?.length) {
@@ -49,7 +49,7 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
     }
   }
 
-  const doCrop = async () => {
+  const doCropImage = async () => {
     const imageEditor = imageEditorRef.current!
     const croppedImage = await imageEditor.getCroppedImage()
     if (croppedImage) {
@@ -70,10 +70,15 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
             tabIndex={-1}
             className="relative"
           >
-            <input type="file" accept="image/*" onChange={(e) => doChange(e)} className="absolute inset-0 hidden" />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => doChangeImage(e)}
+              className="absolute inset-0 hidden"
+            />
             <span className="relative">Upload</span>
           </Button>
-          <Button startIcon={<Crop />} variant="contained" size="small" onClick={doCrop}>
+          <Button startIcon={<Crop />} variant="contained" size="small" onClick={doCropImage}>
             Crop!
           </Button>
         </div>
@@ -90,11 +95,16 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
               className="border-2 border-neutral-300"
             >
               <Button component="label" role={undefined} tabIndex={-1} className="relative">
-                <input type="file" accept="image/*" onChange={(e) => doChange(e)} className="absolute inset-0 hidden" />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => doChangeImage(e)}
+                  className="absolute inset-0 hidden"
+                />
                 <Upload sx={{ fontSize: 60 }} className="relative" />
               </Button>
             </ImageEditor>
-            <Slider min={50} max={150} value={scale} onChange={(_, size) => doScaleChange(size as number)} />
+            <Slider min={50} max={150} value={scale} onChange={(_, size) => doScaleImage(size as number)} />
           </div>
           <div className="border-2 border-neutral-300" style={{ width: cropWidth, height: cropHeight }}>
             {cropImage && <img alt="cropped image" src={URL.createObjectURL(cropImage)} />}
