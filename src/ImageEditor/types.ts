@@ -13,4 +13,5 @@ export type ImageEditorProps = {
   bgColor?: string
   className?: string
   children?: React.ReactNode
+  onLoadImage?: (_: ImageBitmap) => void
 }

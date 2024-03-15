@@ -14,8 +14,19 @@ const initTransformation = {
 }
 
 const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorProps> = (props, ref) => {
-  const { width, height, cropWidth, cropHeight, scale = 1, bgColor = 'transparent', className, children } = props
+  const {
+    width,
+    height,
+    cropWidth,
+    cropHeight,
+    scale = 1,
+    bgColor = 'transparent',
+    className,
+    children,
+    onLoadImage
+  } = props
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
+  // TODO: rename bitmap to image
   const [bitmap, setBitmap] = React.useState<ImageBitmap>()
   const [transformation, setTransformation] = React.useState(initTransformation)
 
@@ -23,7 +34,9 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
     image: bitmap,
     loadImageFromFile: async (file: Blob) => {
       setTransformation({ ...initTransformation, scale })
-      setBitmap(await blob2imageBitmap(file))
+      const image = await blob2imageBitmap(file)
+      setBitmap(image)
+      onLoadImage?.(image)
     },
     getCroppedImage: async (): Promise<Blob | null> => {
       const canvas = canvasRef.current

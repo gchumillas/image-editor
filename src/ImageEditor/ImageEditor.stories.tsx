@@ -33,6 +33,7 @@ export default {
 
 export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: ImageEditorProps) => {
   const imageEditorRef = React.useRef<ImageEditorType>(null)
+  const [image, setImage] = React.useState<ImageBitmap>()
   const [cropImage, setCropImage] = React.useState<Blob>()
   const [scale, setScale] = React.useState(100)
 
@@ -59,10 +60,7 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
   }
 
   const doFitImage = () => {
-    const imageEditor = imageEditorRef.current!
-    const image = imageEditor.image
     if (!image) return
-
     const scaleX = cropWidth / image.width
     const scaleY = cropHeight / image.height
     const scale = Math.min(scaleX, scaleY)
@@ -90,10 +88,10 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
             />
             <span className="relative">Upload</span>
           </Button>
-          <Button startIcon={<Crop />} variant="contained" size="small" onClick={doCropImage}>
+          <Button disabled={!image} startIcon={<Crop />} variant="contained" size="small" onClick={doCropImage}>
             Crop
           </Button>
-          <Button startIcon={<FitScreen />} variant="contained" size="small" onClick={doFitImage}>
+          <Button disabled={!image} startIcon={<FitScreen />} variant="contained" size="small" onClick={doFitImage}>
             Fit
           </Button>
         </div>
@@ -107,6 +105,7 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
               cropHeight={cropHeight}
               scale={scale / 100}
               bgColor={bgColor}
+              onLoadImage={setImage}
               className="border-2 border-neutral-300"
             >
               <Button component="label" role={undefined} tabIndex={-1} className="relative">
