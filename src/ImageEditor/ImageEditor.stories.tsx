@@ -2,6 +2,7 @@ import React from 'react'
 import Slider from '@mui/material/Slider'
 import ImageEditor from './ImageEditor'
 import { ImageEditorProps, ImageEditorType } from './types'
+import { Button } from '@mui/material'
 
 export default {
   title: 'ImageEditor',
@@ -52,7 +53,7 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
     }
   }
 
-  const doSave = async () => {
+  const doCrop = async () => {
     const imageEditor = imageEditorRef.current!
     const croppedImage = await imageEditor.getCroppedImage()
     if (croppedImage) {
@@ -65,7 +66,9 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
       <div className="flex flex-col gap-3">
         <div>
           <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
-          <button onClick={doSave}>Crop!</button>
+          <Button variant="contained" size="small" onClick={doCrop}>
+            Crop!
+          </Button>
         </div>
         <div className="flex gap-3">
           <div>
