@@ -19,6 +19,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.12",
+    "@mui/icons-material": "^5.15.13",
     "@mui/material": "^5.15.13",
     "@rollup/plugin-alias": "^4.0.3",
     "@size-limit/esbuild": "^8.2.4",
