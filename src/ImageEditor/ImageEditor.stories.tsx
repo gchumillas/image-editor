@@ -85,7 +85,7 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
               height={height}
               cropWidth={cropWidth}
               cropHeight={cropHeight}
-              scale={scale}
+              scale={scale / 100}
               bgColor={bgColor}
               className="border-2 border-neutral-300"
             >
