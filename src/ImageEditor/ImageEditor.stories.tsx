@@ -1,6 +1,5 @@
 import React from 'react'
 import Slider from '@mui/material/Slider'
-import styles from './ImageEditor.stories.module.css'
 import ImageEditor from './ImageEditor'
 import { ImageEditorProps, ImageEditorType } from './types'
 
@@ -62,26 +61,33 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
   }
 
   return (
-    <div className={styles.container}>
-      <div>
-        <ImageEditor
-          ref={imageEditorRef}
-          width={width}
-          height={height}
-          cropWidth={cropWidth}
-          cropHeight={cropHeight}
-          scale={scale / 100}
-          bgColor={bgColor}
-        >
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex flex-col gap-3">
+        <div>
           <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
-        </ImageEditor>
-        <Slider min={50} max={150} value={scale} onChange={(_, size) => doScaleChange(size as number)} />
+          <button onClick={doSave}>Crop!</button>
+        </div>
+        <div className="flex gap-3">
+          <div>
+            <ImageEditor
+              ref={imageEditorRef}
+              width={width}
+              height={height}
+              cropWidth={cropWidth}
+              cropHeight={cropHeight}
+              scale={scale / 100}
+              bgColor={bgColor}
+              className="border-2 border-neutral-300"
+            >
+              <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
+            </ImageEditor>
+            <Slider min={50} max={150} value={scale} onChange={(_, size) => doScaleChange(size as number)} />
+          </div>
+          <div className="border-2 border-neutral-300" style={{ width: cropWidth, height: cropHeight }}>
+            {cropImage && <img alt="cropped image" src={URL.createObjectURL(cropImage)} />}
+          </div>
+        </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
-        <button onClick={doSave}>Crop!</button>
-      </div>
-      {cropImage && <img alt="cropped image" src={URL.createObjectURL(cropImage)} />}
     </div>
   )
 }
