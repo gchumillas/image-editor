@@ -61,6 +61,7 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
     if (files?.length) {
       await imageEditor.loadImageFromFile(files[0])
       setScale(100)
+      setCropImage(undefined)
     }
   }
 
