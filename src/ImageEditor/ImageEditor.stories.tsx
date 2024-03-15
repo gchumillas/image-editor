@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Slider } from '@mui/material'
-import { Crop, Upload, FitScreen } from '@mui/icons-material'
+import { Crop, Download, Upload, FitScreen } from '@mui/icons-material'
 import ImageEditor from './ImageEditor'
 import { ImageEditorProps, ImageEditorType } from './types'
 
@@ -29,6 +29,19 @@ export default {
       defaultValue: 180
     }
   }
+}
+
+const saveFile = (blob: Blob, filename: string) => {
+  const a = document.createElement('a')
+  document.body.appendChild(a)
+  const url = window.URL.createObjectURL(blob)
+  a.href = url
+  a.download = filename
+  a.click()
+  setTimeout(() => {
+    window.URL.revokeObjectURL(url)
+    document.body.removeChild(a)
+  }, 0)
 }
 
 export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: ImageEditorProps) => {
@@ -67,6 +80,11 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
     setScale(scale * 100)
   }
 
+  const doDownloadImage = () => {
+    if (!cropImage) return
+    saveFile(cropImage, 'image.png')
+  }
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="flex flex-col gap-3 items-start">
@@ -93,6 +111,15 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
           </Button>
           <Button disabled={!image} startIcon={<FitScreen />} variant="contained" size="small" onClick={doFitImage}>
             Fit
+          </Button>
+          <Button
+            disabled={!cropImage}
+            startIcon={<Download />}
+            variant="contained"
+            size="small"
+            onClick={doDownloadImage}
+          >
+            Download
           </Button>
         </div>
         <div className="flex gap-3">
