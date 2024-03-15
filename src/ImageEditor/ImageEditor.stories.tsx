@@ -1,4 +1,5 @@
 import React from 'react'
+import { useArgs } from '@storybook/client-api'
 import { Button, Slider } from '@mui/material'
 import { Crop, Upload } from '@mui/icons-material'
 import ImageEditor from './ImageEditor'
@@ -38,10 +39,10 @@ export default {
 export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: ImageEditorProps) => {
   const imageEditorRef = React.useRef<ImageEditorType>(null)
   const [cropImage, setCropImage] = React.useState<Blob>()
-  const [scale, setScale] = React.useState(100)
+  const [{ scale }, updateArgs] = useArgs()
 
   const doScaleChange = (scale: number) => {
-    setScale(scale)
+    updateArgs({ scale: scale / 100 })
   }
 
   // TODO: rename to doFileChange
@@ -89,7 +90,7 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
               height={height}
               cropWidth={cropWidth}
               cropHeight={cropHeight}
-              scale={scale / 100}
+              scale={scale}
               bgColor={bgColor}
               className="border-2 border-neutral-300"
             >
@@ -98,7 +99,12 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
                 <Upload sx={{ fontSize: 60 }} className="relative" />
               </Button>
             </ImageEditor>
-            <Slider min={50} max={150} value={scale} onChange={(_, size) => doScaleChange(size as number)} />
+            <Slider
+              min={50}
+              max={150}
+              value={Math.floor(scale * 100)}
+              onChange={(_, size) => doScaleChange(size as number)}
+            />
           </div>
           <div className="border-2 border-neutral-300" style={{ width: cropWidth, height: cropHeight }}>
             {cropImage && <img alt="cropped image" src={URL.createObjectURL(cropImage)} />}
