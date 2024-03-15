@@ -41,11 +41,12 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
   }
 
   // TODO: rename to doFileChange
-  const doChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const doChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageEditor = imageEditorRef.current!
     const files = e.target.files
     if (files?.length) {
-      imageEditor.loadImageFromFile(files[0])
+      await imageEditor.loadImageFromFile(files[0])
+      setScale(100)
     }
   }
 
