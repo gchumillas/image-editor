@@ -2,6 +2,8 @@
 
 Image editor made in React and TypeScript.
 
+![example (2)](https://github.com/gchumillas/image-editor/assets/5312427/fc85d3ba-ac8c-4eb1-b097-2d8416820f48)
+
 ## Install
 
 ```bash
