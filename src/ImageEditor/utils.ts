@@ -30,7 +30,7 @@ export const dataImage2blob = (imageData: ImageData): Promise<Blob | null> => {
 
 export const drawImage = (params: {
   canvas: HTMLCanvasElement
-  bitmap: ImageBitmap
+  image: ImageBitmap
   x: number
   y: number
   width: number
@@ -40,7 +40,7 @@ export const drawImage = (params: {
   scale: number
   bgColor: string
 }) => {
-  const { canvas, bitmap, x, y, width, height, cropWidth, cropHeight, scale, bgColor } = params
+  const { canvas, image, x, y, width, height, cropWidth, cropHeight, scale, bgColor } = params
   const ctx = canvas.getContext('2d')
   if (!ctx) {
     return
@@ -52,16 +52,16 @@ export const drawImage = (params: {
   ctx.fillRect(0, 0, width, height)
   ctx.drawImage(
     // origin
-    bitmap,
+    image,
     0,
     0,
-    bitmap.width,
-    bitmap.height,
+    image.width,
+    image.height,
     // destination
-    scale * x + (width - scale * bitmap.width) / 2,
-    scale * y + (height - scale * bitmap.height) / 2,
-    scale * bitmap.width,
-    scale * bitmap.height
+    scale * x + (width - scale * image.width) / 2,
+    scale * y + (height - scale * image.height) / 2,
+    scale * image.width,
+    scale * image.height
   )
 
   // draws the semitransparent overlay

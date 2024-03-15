@@ -54,7 +54,6 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
     setScale(scale)
   }
 
-  // TODO: rename to doFileChange
   const doChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageEditor = imageEditorRef.current!
     const files = e.target.files

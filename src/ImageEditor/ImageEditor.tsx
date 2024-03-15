@@ -26,16 +26,15 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
     onLoadImage
   } = props
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
-  // TODO: rename bitmap to image
-  const [bitmap, setBitmap] = React.useState<ImageBitmap>()
+  const [image, setImage] = React.useState<ImageBitmap>()
   const [transformation, setTransformation] = React.useState(initTransformation)
 
   React.useImperativeHandle(ref, () => ({
-    image: bitmap,
+    image,
     loadImageFromFile: async (file: Blob) => {
       setTransformation({ ...initTransformation, scale })
       const image = await blob2imageBitmap(file)
-      setBitmap(image)
+      setImage(image)
       onLoadImage?.(image)
     },
     getCroppedImage: async (): Promise<Blob | null> => {
@@ -51,13 +50,13 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
   // draws image
   React.useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas || !bitmap) {
+    if (!canvas || !image) {
       return
     }
 
     drawImage({
       canvas,
-      bitmap,
+      image,
       x: transformation.imageX + transformation.offsetX,
       y: transformation.imageY + transformation.offsetY,
       width,
@@ -67,7 +66,7 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
       scale: transformation.scale,
       bgColor
     })
-  }, [transformation, bitmap, width, height, cropWidth, cropHeight, scale, bgColor])
+  }, [transformation, image, width, height, cropWidth, cropHeight, scale, bgColor])
 
   React.useEffect(() => {
     setTransformation((transformation) => ({ ...transformation, scale: Math.max(scale, 0) }))
@@ -142,7 +141,7 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
         height
       }}
     >
-      {bitmap ? <canvas ref={canvasRef} width={width} height={height} /> : <div>{children}</div>}
+      {image ? <canvas ref={canvasRef} width={width} height={height} /> : <div>{children}</div>}
     </div>
   )
 }
