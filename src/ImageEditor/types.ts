@@ -11,4 +11,5 @@ export type ImageEditorProps = {
   scale?: number
   bgColor?: string
   className?: string
+  children?: React.ReactNode
 }

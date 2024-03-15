@@ -72,11 +72,15 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
           cropHeight={cropHeight}
           scale={scale / 100}
           bgColor={bgColor}
-        />
+        >
+          <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
+        </ImageEditor>
         <Slider min={100} max={200} value={scale} onChange={(_, size) => doScaleChange(size as number)} />
       </div>
-      <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
-      <button onClick={doSave}>Crop!</button>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
+        <button onClick={doSave}>Crop!</button>
+      </div>
       {cropImage && <img alt="cropped image" src={URL.createObjectURL(cropImage)} />}
     </div>
   )
