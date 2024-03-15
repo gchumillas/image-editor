@@ -27,7 +27,7 @@ module.exports = {
     'ecmaVersion': 'latest',
     'sourceType': 'module'
   },
-  'plugins': ['react', '@typescript-eslint', 'no-relative-import-paths', 'import'],
+  'plugins': ['react', '@typescript-eslint', 'import'],
   rules: {
     'eol-last': 'off',
     'eqeqeq': 'off',
