@@ -88,31 +88,62 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <div className="flex flex-col gap-3 items-start">
-        <div className="inline-flex gap-3">
-          <Button
-            startIcon={<Upload />}
-            variant="contained"
-            size="small"
-            component="label"
-            role={undefined}
-            tabIndex={-1}
-            className="relative"
+      <div className="flex gap-3">
+        {/* IMAGE EDITOR */}
+        <div className="flex flex-col items-start gap-3">
+          {/* CONTROL BUTTONS */}
+          <div className="flex gap-3">
+            <Button
+              startIcon={<Upload />}
+              variant="contained"
+              size="small"
+              component="label"
+              role={undefined}
+              tabIndex={-1}
+              className="relative"
+            >
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => doChangeImage(e)}
+                className="absolute inset-0 hidden"
+              />
+              <span className="relative">Upload</span>
+            </Button>
+            <Button disabled={!image} startIcon={<Crop />} variant="contained" size="small" onClick={doCropImage}>
+              Crop
+            </Button>
+            <Button disabled={!image} startIcon={<FitScreen />} variant="contained" size="small" onClick={doFitImage}>
+              Fit
+            </Button>
+          </div>
+          <ImageEditor
+            ref={imageEditorRef}
+            width={width}
+            height={height}
+            cropWidth={cropWidth}
+            cropHeight={cropHeight}
+            scale={scale / 100}
+            bgColor={bgColor}
+            onLoadImage={setImage}
+            className="border-2 border-neutral-300"
           >
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => doChangeImage(e)}
-              className="absolute inset-0 hidden"
-            />
-            <span className="relative">Upload</span>
-          </Button>
-          <Button disabled={!image} startIcon={<Crop />} variant="contained" size="small" onClick={doCropImage}>
-            Crop
-          </Button>
-          <Button disabled={!image} startIcon={<FitScreen />} variant="contained" size="small" onClick={doFitImage}>
-            Fit
-          </Button>
+            <Button component="label" role={undefined} tabIndex={-1} className="relative">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => doChangeImage(e)}
+                className="absolute inset-0 hidden"
+              />
+              <Upload sx={{ fontSize: 60 }} className="relative" />
+            </Button>
+          </ImageEditor>
+          <Slider min={50} max={150} value={scale} onChange={(_, size) => doScaleImage(size as number)} />
+        </div>
+
+        {/* CROPPED IMAGE */}
+        <div className="flex flex-col items-start gap-3">
+          {/* CONTROL BUTTONS */}
           <Button
             disabled={!cropImage}
             startIcon={<Download />}
@@ -122,32 +153,6 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
           >
             Download
           </Button>
-        </div>
-        <div className="flex gap-3">
-          <div>
-            <ImageEditor
-              ref={imageEditorRef}
-              width={width}
-              height={height}
-              cropWidth={cropWidth}
-              cropHeight={cropHeight}
-              scale={scale / 100}
-              bgColor={bgColor}
-              onLoadImage={setImage}
-              className="border-2 border-neutral-300"
-            >
-              <Button component="label" role={undefined} tabIndex={-1} className="relative">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => doChangeImage(e)}
-                  className="absolute inset-0 hidden"
-                />
-                <Upload sx={{ fontSize: 60 }} className="relative" />
-              </Button>
-            </ImageEditor>
-            <Slider min={50} max={150} value={scale} onChange={(_, size) => doScaleImage(size as number)} />
-          </div>
           <div className="border-2 border-neutral-300" style={{ width: cropWidth, height: cropHeight }}>
             {cropImage && <img alt="cropped image" src={URL.createObjectURL(cropImage)} />}
           </div>
