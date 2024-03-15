@@ -10,7 +10,7 @@ export default {
     bgColor: {
       control: { type: 'select' },
       options: ['transparent', 'azure', 'cornsilk', 'lavenderBlush', 'tomato'],
-      defaultValue: 'tomato'
+      defaultValue: 'lavenderBlush'
     },
     width: {
       control: { type: 'number' },
