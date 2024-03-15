@@ -67,7 +67,11 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
       scale: transformation.scale,
       bgColor
     })
-  }, [transformation, bitmap, width, height, cropWidth, cropHeight, bgColor])
+  }, [transformation, bitmap, width, height, cropWidth, cropHeight, scale, bgColor])
+
+  React.useEffect(() => {
+    setTransformation((transformation) => ({ ...transformation, scale: Math.max(scale, 0) }))
+  }, [scale])
 
   React.useEffect(() => {
     const onMouseDown = (e: MouseEvent) => {
@@ -125,10 +129,6 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
       window.removeEventListener('mouseup', onMouseUp)
     }
   }, [])
-
-  React.useEffect(() => {
-    setTransformation((transformation) => ({ ...transformation, scale: Math.max(scale, 0) }))
-  }, [scale])
 
   return (
     <div
