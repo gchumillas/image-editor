@@ -64,8 +64,18 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="flex flex-col gap-3">
-        <div>
-          <input type="file" accept="image/*" onChange={(e) => doChange(e)} />
+        <div className="flex gap-3">
+          <Button
+            variant="contained"
+            size="small"
+            component="label"
+            role={undefined}
+            tabIndex={-1}
+            className="relative"
+          >
+            <input type="file" accept="image/*" onChange={(e) => doChange(e)} className="absolute inset-0 hidden" />
+            <span className="relative">Upload</span>
+          </Button>
           <Button variant="contained" size="small" onClick={doCrop}>
             Crop!
           </Button>
