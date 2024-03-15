@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Slider } from '@mui/material'
-import { Crop, Upload } from '@mui/icons-material'
+import { Crop, Upload, FitScreen } from '@mui/icons-material'
 import ImageEditor from './ImageEditor'
 import { ImageEditorProps, ImageEditorType } from './types'
 
@@ -91,10 +91,10 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
             <span className="relative">Upload</span>
           </Button>
           <Button startIcon={<Crop />} variant="contained" size="small" onClick={doCropImage}>
-            Crop!
+            Crop
           </Button>
-          <Button variant="contained" size="small" onClick={doFitImage}>
-            Fit!
+          <Button startIcon={<FitScreen />} variant="contained" size="small" onClick={doFitImage}>
+            Fit
           </Button>
         </div>
         <div className="flex gap-3">
