@@ -35,6 +35,7 @@ module.exports = {
     'semi': ["error", "never"],
     'no-unused-vars': 'off',
     'func-style': ['error', 'expression'],
+    'multiline-ternary': 'off',
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {
