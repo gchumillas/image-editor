@@ -1,8 +1,8 @@
 import React from 'react'
-import Slider from '@mui/material/Slider'
+import { Button, Slider } from '@mui/material'
+import { CloudUpload, Crop } from '@mui/icons-material'
 import ImageEditor from './ImageEditor'
 import { ImageEditorProps, ImageEditorType } from './types'
-import { Button } from '@mui/material'
 
 export default {
   title: 'ImageEditor',
@@ -63,9 +63,10 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <div className="flex flex-col gap-3">
-        <div className="flex gap-3">
+      <div className="flex flex-col gap-3 items-start">
+        <div className="inline-flex gap-3">
           <Button
+            startIcon={<CloudUpload />}
             variant="contained"
             size="small"
             component="label"
@@ -76,7 +77,7 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
             <input type="file" accept="image/*" onChange={(e) => doChange(e)} className="absolute inset-0 hidden" />
             <span className="relative">Upload</span>
           </Button>
-          <Button variant="contained" size="small" onClick={doCrop}>
+          <Button startIcon={<Crop />} variant="contained" size="small" onClick={doCrop}>
             Crop!
           </Button>
         </div>
