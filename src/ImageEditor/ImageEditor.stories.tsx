@@ -57,6 +57,17 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
     }
   }
 
+  const doFitImage = () => {
+    const imageEditor = imageEditorRef.current!
+    const image = imageEditor.image
+    if (!image) return
+
+    const scaleX = cropWidth / image.width
+    const scaleY = cropHeight / image.height
+    const scale = Math.min(scaleX, scaleY)
+    setScale(scale * 100)
+  }
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="flex flex-col gap-3 items-start">
@@ -80,6 +91,9 @@ export const Example = ({ bgColor, width, height, cropWidth, cropHeight }: Image
           </Button>
           <Button startIcon={<Crop />} variant="contained" size="small" onClick={doCropImage}>
             Crop!
+          </Button>
+          <Button variant="contained" size="small" onClick={doFitImage}>
+            Fit!
           </Button>
         </div>
         <div className="flex gap-3">
