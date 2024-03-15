@@ -20,6 +20,7 @@ const ImageEditor: React.ForwardRefRenderFunction<ImageEditorType, ImageEditorPr
   const [transformation, setTransformation] = React.useState(initTransformation)
 
   React.useImperativeHandle(ref, () => ({
+    image: bitmap,
     loadImageFromFile: async (file: Blob) => {
       setTransformation({ ...initTransformation, scale })
       setBitmap(await blob2imageBitmap(file))

@@ -1,4 +1,5 @@
 export type ImageEditorType = {
+  image?: ImageBitmap
   loadImageFromFile: (file: Blob) => Promise<void>
   getCroppedImage: () => Promise<Blob | null>
 }
